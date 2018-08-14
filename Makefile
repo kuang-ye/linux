@@ -1,4 +1,15 @@
+# $@--目标文件，$^--所有的依赖文件，$<--第一个依赖文件
+# $?  表示比目标还要新的依赖文件列表
+#gcc编译器有许多选项，一般来说我们只要知道其中的几个就够了。/
+#-o选项我们已经知道了，表示我们要求输出的可执行文件名。 
+#-c选项表示我们只要求编译器输出目标代码，而不必要输出可执行文件。
+#-g选项表示我们要求编译器在编译的时候提供我们以后对程序进行调试的信息。
+# = 是最基本的赋值  make会将整个makefile展开后，再决定变量的值。也就是说，变量的值将会是整个makefile中最后被指定的值
+# := 是覆盖之前的值 “:=”表示变量的值决定于它在makefile中的位置，而不是整个makefile展开后的最终值
+# ?= 是如果没有被赋值过就赋予等号后面的值
+#+= 是添加等号后面的值
 # SPDX-License-Identifier: GPL-2.0
+#内核完整的版本号
 VERSION = 4
 PATCHLEVEL = 18
 SUBLEVEL = 0
@@ -12,12 +23,15 @@ NAME = Merciless Moray
 # expect to learn how to build the kernel reading this file.
 
 # That's our default target when none is given on the command line
+
 PHONY := _all
 _all:
 
 # o Do not use make's built-in rules and variables
 #   (this increases performance and avoids hard-to-debug behaviour);
 # o Look for make include files relative to root of kernel src
+#MAKEFLAGS是make内置的环境变量，这些参数的含义，可以通过man make 获得详细解释，/
+#/以上”-rR“表示禁用内置的隐含规则和变量定义，”–include-dir” 指明嵌套脚本的搜索路径
 MAKEFLAGS += -rR --include-dir=$(CURDIR)
 
 # Avoid funny character set dependencies
